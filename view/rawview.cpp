@@ -24,48 +24,35 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 
-#ifndef DOCUMENT_H
-#define DOCUMENT_H
+#include "rawview.h"
 
+#include <QFontDatabase>
+#include <QFont>
+#include "../document.h"
 
-#include "pdfparser/pdfobject.h"
-#include "pdfparser/pdfreader.h"
-#include "pdfparser/pdfxref.h"
-
-namespace PDF {
-    class Reader;
+/************************************************
+ *
+ ************************************************/
+RawView::RawView(QWidget *parent):
+    QTextBrowser(parent)
+{
+    QFont fixedFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
+    fixedFont.setStyleHint(QFont::TypeWriter);
+    fixedFont.setStyleHint(QFont::Monospace);
+    this->setFont(fixedFont);
 }
 
-class Document : public QObject
+
+/************************************************
+ *
+ ************************************************/
+void RawView::refresh(const Document &document, const PDF::Object &object)
 {
-    Q_OBJECT
-public:
-    explicit Document(QObject *parent = 0);
+    if (!object.isValid())
+    {
+        this->setText("");
+        return;
+    }
 
-    bool load(const QString &fileName);
-
-    QString fileName() const { return mFileName; }
-
-    const PDF::Object &currentObject() const;
-
-    const PDF::XRefTable &xRefTable() const;
-
-    const PDF::Reader &reader() const { return mReader; }
-    PDF::Reader &reader() { return mReader; }
-
-signals:
-    void loaded(const Document &document);
-    void currentObjectChanged(const Document &document, const PDF::Object &obj);
-
-public slots:
-    void setCurrentObject(PDF::ObjNum objNum, PDF::GenNum genNum);
-
-private:
-    PDF::Reader mReader;
-    QString mFileName;
-    PDF::Object mCurrentObject;
-};
-
-
-
-#endif // DOCUMENT_H
+    setPlainText(document.reader().rawData(object.pos(), object.len()));
+}

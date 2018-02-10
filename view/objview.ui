@@ -36,18 +36,6 @@
        <string>Parsed</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
        <item>
         <widget class="ParseView" name="parseView">
          <property name="frameShape">
@@ -62,20 +50,8 @@
        <string>Raw</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
        <item>
-        <widget class="QTextBrowser" name="plainView">
+        <widget class="RawView" name="rawView">
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
          </property>
@@ -92,6 +68,11 @@
    <class>ParseView</class>
    <extends>QTextBrowser</extends>
    <header>view/parseview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>RawView</class>
+   <extends>QTextBrowser</extends>
+   <header>view/rawview.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -56,6 +56,7 @@ set(HEADERS
 
     view/objview.h
     view/parseview.h
+    view/rawview.h
 
     pdfparser/pdferrors.h
     pdfparser/pdfobject.h
@@ -78,6 +79,7 @@ set(SOURCES
 
     view/objview.cpp
     view/parseview.cpp
+    view/rawview.cpp
 
     pdfparser/pdfobject.cpp
     pdfparser/pdfreader.cpp

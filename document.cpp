@@ -102,7 +102,7 @@ void Document::setCurrentObject(PDF::ObjNum objNum, PDF::GenNum genNum)
     try
     {
         mCurrentObject = mReader.getObject(objNum, genNum);
-        emit currentObjectChanged(mCurrentObject);
+        emit currentObjectChanged(*this, mCurrentObject);
     }
     catch (PDF::Error)
     {

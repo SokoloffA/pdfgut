@@ -127,7 +127,6 @@ QString asHTML(const PDF::Value value, bool topLevel)
 }
 
 
-
 /************************************************
  *
  ************************************************/
@@ -139,32 +138,23 @@ void ParseView::selectObject(const PDF::Object &object)
         return;
     }
 
-    QString css =
-            "<style>"
-            ".objectView { margin: 10px;}"
-            "</style>\n";
-
     QString type = object.subType().isEmpty() ? object.type() : QString("%1:%2").arg(object.type(), object.subType());
 
     QString res = "<html><body>";
-    res += css;
     res += ThemeManager::instance().parseViewCSS();
     res += "<div class=header><br>";
-    res += QString("&nbsp;&nbsp;<b>Object&nbsp;&nbsp; %1 %2</b><br>").arg(object.objNum()).arg(object.genNum());
-    res += QString("&nbsp;&nbsp;<i>Type: %1</i><br>").arg(type);
+    res += QString("&nbsp;<b>Object&nbsp;&nbsp; %1 %2</b><br>").arg(object.objNum()).arg(object.genNum());
+    res += QString("&nbsp;<i>Type: %1</i><br>").arg(type);
     res += "</div>";
     res += "<br>";
 
     res += "<div class=objectView>";
     res += asHTML(object.value(), true);
 
-    //if (!obj.error().isEmpty())
-//         res += QString("<div class=error><b>Error</b><br>%1</div>").arg(obj.error());
     res += "</div>";
     res += "</body></html>";
 
     this->setHtml(res);
-    //this->setPlainText(res);
 }
 
 

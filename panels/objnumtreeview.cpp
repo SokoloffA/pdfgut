@@ -37,7 +37,7 @@ ObjNumTreeView::ObjNumTreeView(QWidget *parent) :
     QTreeView(parent)
 {
     mModel = new QStandardItemModel(this);
-
+    this->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     mModel->setHorizontalHeaderLabels(QStringList() << "Object");
 
@@ -74,8 +74,9 @@ void ObjNumTreeView::refresh(const Document &document)
 /************************************************
  *
  ************************************************/
-void ObjNumTreeView::selectObject(const PDF::Object &object)
+void ObjNumTreeView::selectObject(const Document &document, const PDF::Object &object)
 {
+    Q_UNUSED(document);
     for (int i=0; i<mModel->rowCount(); ++i)
     {
         ObjTreeViewItem *item = ObjTreeViewItem::fromQStandardItem(mModel->item(i, 0));

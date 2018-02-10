@@ -39,7 +39,7 @@ ObjView::ObjView(QWidget *parent) :
     ui->setupUi(this);
 
     connect(ui->parseView, &ParseView::objectSelected,
-            this,          &ObjView::objectSelected);
+            this,          &ObjView::objectClicked);
 }
 
 
@@ -55,7 +55,8 @@ ObjView::~ObjView()
 /************************************************
  *
  ************************************************/
-void ObjView::selectObject(const PDF::Object &object)
+void ObjView::refresh(const Document &document, const PDF::Object &object)
 {
     ui->parseView->selectObject(object);
+    ui->rawView->refresh(document, object);
 }

@@ -24,48 +24,23 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 
-#ifndef DOCUMENT_H
-#define DOCUMENT_H
+#ifndef RAWVIEW_H
+#define RAWVIEW_H
 
-
+#include <QTextBrowser>
 #include "pdfparser/pdfobject.h"
-#include "pdfparser/pdfreader.h"
-#include "pdfparser/pdfxref.h"
 
-namespace PDF {
-    class Reader;
-}
+class Document;
 
-class Document : public QObject
+class RawView : public QTextBrowser
 {
     Q_OBJECT
 public:
-    explicit Document(QObject *parent = 0);
-
-    bool load(const QString &fileName);
-
-    QString fileName() const { return mFileName; }
-
-    const PDF::Object &currentObject() const;
-
-    const PDF::XRefTable &xRefTable() const;
-
-    const PDF::Reader &reader() const { return mReader; }
-    PDF::Reader &reader() { return mReader; }
-
-signals:
-    void loaded(const Document &document);
-    void currentObjectChanged(const Document &document, const PDF::Object &obj);
+    explicit RawView(QWidget *parent = 0);
 
 public slots:
-    void setCurrentObject(PDF::ObjNum objNum, PDF::GenNum genNum);
+    void refresh(const Document &document, const PDF::Object &object);
 
-private:
-    PDF::Reader mReader;
-    QString mFileName;
-    PDF::Object mCurrentObject;
 };
 
-
-
-#endif // DOCUMENT_H
+#endif // RAWVIEW_H

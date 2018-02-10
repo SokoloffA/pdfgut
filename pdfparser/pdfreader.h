@@ -101,6 +101,12 @@ public:
 
     quint32 pageCount();
 
+    /// Constructs a QByteArray that uses len bytes from the data,
+    /// starting at position pos. The bytes are not copied.
+    /// The caller guarantees that reader will not be closed as long
+    /// as this QByteArray and any copies of it exist.
+    QByteArray rawData(quint64 pos, quint64 len) const;
+
 protected:
     void   load();
     Value  readValue(quint64 *pos) const;

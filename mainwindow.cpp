@@ -56,24 +56,18 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionOpen, SIGNAL(triggered()),
             this, SLOT(openFile()));
 
-    connect(&mDocument, &Document::loaded,
+    connect(&mDocument,  &Document::loaded,
             mObjNumTree, &ObjNumTreeView::refresh);
 
-    connect(&mDocument,  SIGNAL(currentObjectChanged(PDF::Object)),
-            mObjNumTree, SLOT(selectObject(PDF::Object)));
-
+    connect(&mDocument,  &Document::currentObjectChanged,
+            mObjNumTree, &ObjNumTreeView::selectObject);
 
     connect(mObjNumTree, SIGNAL(objectSelected(PDF::ObjNum,PDF::GenNum)),
             &mDocument,  SLOT(setCurrentObject(PDF::ObjNum,PDF::GenNum)));
 
+    connect(&mDocument,  &Document::currentObjectChanged,
+            mView,       &ObjView::refresh);
 
-
-
-    connect(&mDocument,  SIGNAL(currentObjectChanged(PDF::Object)),
-            mView,       SLOT(selectObject(PDF::Object)));
-
-  //  connect(mView,       &ObjView::objectSelected,
-  //          &mDocument,  &Document::setCurrentObject);
     connect(mView,       SIGNAL(objectSelected(PDF::ObjNum,PDF::GenNum)),
             &mDocument,  SLOT(setCurrentObject(PDF::ObjNum,PDF::GenNum)));
 

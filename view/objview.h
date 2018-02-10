@@ -38,6 +38,8 @@ namespace PDF {
     class Object;
 }
 
+class Document;
+
 class ObjView : public QWidget
 {
     Q_OBJECT
@@ -47,10 +49,10 @@ public:
     ~ObjView();
 
 signals:
-    void objectSelected(PDF::ObjNum, PDF::GenNum);
+    void objectClicked(PDF::ObjNum, PDF::GenNum);
 
 public slots:
-    void selectObject(const PDF::Object &object);
+    void refresh(const Document &document, const PDF::Object &object);
 
 private:
     Ui::ObjView *ui;

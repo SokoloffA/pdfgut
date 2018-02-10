@@ -44,7 +44,7 @@ signals:
 
 public slots:
     void refresh(const Document &document);
-    void selectObject(const PDF::Object &object);
+    void selectObject(const Document &document, const PDF::Object &object);
 
 private slots:
     void itemActivated(const QModelIndex &index);

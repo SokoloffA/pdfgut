@@ -953,6 +953,8 @@ qint64 Reader::readObject(quint64 start, Object *res) const
             pos += strlen("endstream");
     }
 
+    pos = data.skipSpace(pos);
+    pos += strlen("endobj");
     res->mPos = start;
     res->mLen = pos - start;
     return pos;
@@ -1182,6 +1184,15 @@ quint32 Reader::pageCount()
         mPagesCount = find("/Root/Pages/Count").asNumber().value();
 
     return mPagesCount;
+}
+
+
+/************************************************
+ *
+ ************************************************/
+QByteArray Reader::rawData(quint64 pos, quint64 len) const
+{
+    return QByteArray::fromRawData(mData + pos, len);
 }
 
 
